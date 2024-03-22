@@ -10,7 +10,7 @@ namespace Plugins.ContextualMenu.Scripts.ContextualMenu {
     }
 
     public class ContextualMenuOption : MonoBehaviour {
-        public Action<IContextualMenuObject, ContextualMenuData<IContextualMenuObject>> onInvalidExecution;
+        public Action<IContextualMenuObject, IContextualMenuData<IContextualMenuObject>> onInvalidExecution;
         
         public InvalidOptionBehaviour invalidOptionBehaviour;
         public bool validateAgainBeforeExecution = true;
@@ -19,11 +19,11 @@ namespace Plugins.ContextualMenu.Scripts.ContextualMenu {
         [SerializeField] private Button button;
         [SerializeField] private TextMeshProUGUI buttonText;
         
-        private ContextualMenuData<IContextualMenuObject> menuData;
+        private IContextualMenuData<IContextualMenuObject> menuData;
         private IContextualMenuObject contextualMenuObject;
-        private BaseContextualMenu<IContextualMenuObject> parentMenu;
+        private IBaseContextualMenu parentMenu;
         
-        public void Init(ContextualMenuData<IContextualMenuObject> menuData, BaseContextualMenu<IContextualMenuObject> parentMenu) {
+        public void Init(IContextualMenuData<IContextualMenuObject> menuData, IBaseContextualMenu parentMenu) {
             this.menuData = menuData;
             this.parentMenu = parentMenu;
             buttonText.text = this.menuData.buttonText;

@@ -2,6 +2,7 @@ using System.Collections;
 using Plugins.ContextualMenu.Scripts.ContextualMenu;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace Plugins.ContextualMenu.Demo {
     public enum OnClickAction {

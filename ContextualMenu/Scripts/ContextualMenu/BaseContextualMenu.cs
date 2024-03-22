@@ -3,21 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Plugins.ContextualMenu.Scripts.ContextualMenu {
-    public interface IContextualMenuObject { }
-
-    public class ContextualMenuData<T> where T : IContextualMenuObject {
-        public string buttonText;
-        public Func<T, bool> validationFunction;
-        public Action<T> executeFunction;
-
-        public ContextualMenuData(string buttonText, Action<T> executeFunction, Func<T, bool> validationFunction) {
-            this.buttonText = buttonText;
-            this.validationFunction = validationFunction;
-            this.executeFunction = executeFunction;
-        }
+    public interface IBaseContextualMenu {
+        public void Close();
     }
 
-    public abstract class BaseContextualMenu<T> : MonoBehaviour where T : IContextualMenuObject {
+    public abstract class BaseContextualMenu<T> : MonoBehaviour, IBaseContextualMenu where T : IContextualMenuObject {
         [SerializeField] private ContextualMenuBuilder builder;
 
         public List<ContextualMenuOption> options { get; } = new();
