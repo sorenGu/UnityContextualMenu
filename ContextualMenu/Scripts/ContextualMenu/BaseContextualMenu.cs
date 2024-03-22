@@ -41,7 +41,7 @@ namespace Plugins.ContextualMenu.Scripts.ContextualMenu {
 
         public List<ContextualOption<T>> options { get; } = new();
 
-        public void AddButton(ContextualOption<T> option) {
+        public virtual void AddButton(ContextualOption<T> option) {
             ContextualMenuButton contextualMenuButton = builder.AddButton(option.buttonText);
             option.button = contextualMenuButton;
             contextualMenuButton.button.onClick.AddListener(delegate { Execute(option); });
@@ -49,34 +49,34 @@ namespace Plugins.ContextualMenu.Scripts.ContextualMenu {
         }
 
 
-        public void Open(string titleText, T contextualMenuObject, Transform attachTransform) {
+        public virtual void Open(string titleText, T contextualMenuObject, Transform attachTransform) {
             transform.SetParent(attachTransform, false);
             Open(titleText, contextualMenuObject);
         }
 
-        public void Open(string titleText, T contextualMenuObject, Vector3 position) {
+        public virtual void Open(string titleText, T contextualMenuObject, Vector3 position) {
             transform.position = position;
             Open(titleText, contextualMenuObject);
         }
 
-        public void Open(string titleText, T contextualMenuObject) {
+        public virtual void Open(string titleText, T contextualMenuObject) {
             currentObject = contextualMenuObject;
             builder.SetText(titleText);
             gameObject.SetActive(true);
             Validate(contextualMenuObject);
         }
 
-        private void Validate(T contextualMenuObject) {
+        protected virtual void Validate(T contextualMenuObject) {
             foreach (var option in options) {
                 option.button.SetValid(option.validationFunction(contextualMenuObject), option.invalidOptionBehaviour);
             }
         }
 
-        public void Close() {
+        public virtual void Close() {
             gameObject.SetActive(false);
         }
 
-        private void Execute(ContextualOption<T> option) {
+        protected virtual void Execute(ContextualOption<T> option) {
             if (option.closeAfterMenuAfterClicking) {
                 Close();
             }
