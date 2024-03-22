@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Plugins.ContextualMenu.Scripts.ContextualMenu;
+using sorenGu.ContextualMenu.Scripts.ContextualMenu;
 using UnityEngine;
 
-namespace Plugins.ContextualMenu.Demo {
+namespace sorenGu.ContextualMenu.Demo {
     public class DemoAppleContextualMenu : BaseContextualMenu<DemoApple> {
         private void Start() {
             var optionsData = new List<ContextualOption<DemoApple>>() {

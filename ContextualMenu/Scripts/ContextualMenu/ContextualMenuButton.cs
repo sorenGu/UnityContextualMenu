@@ -1,9 +1,8 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Plugins.ContextualMenu.Scripts.ContextualMenu {
+namespace sorenGu.ContextualMenu.Scripts.ContextualMenu {
     public enum InvalidOptionBehaviour {
         Hide,
         Disable

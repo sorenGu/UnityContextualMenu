@@ -1,9 +1,7 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Plugins.ContextualMenu.Scripts.ContextualMenu {
+namespace sorenGu.ContextualMenu.Scripts.ContextualMenu {
     public class ContextualMenuBuilder : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI title;
         [SerializeField] private Transform optionsContainer;

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
-namespace Plugins.ContextualMenu.Scripts.ContextualMenu {
+namespace sorenGu.ContextualMenu.Scripts.ContextualMenu {
     public class HideContextMenu : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler {
         [Header("Delays in Seconds")]
         [SerializeField] private float delayAfterMouseLeft = 0.5f;
