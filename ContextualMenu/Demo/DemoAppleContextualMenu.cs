@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace Plugins.ContextualMenu.Demo {
     public class DemoAppleContextualMenu : BaseContextualMenu<DemoApple> {
-        private void Awake() {
-            AddButton(new("Eat", DemoApple.ExecuteEat, DemoApple.ValidateEatable));
-            
-            var optionsData = new List<ContextualMenuData<DemoApple>>() {
+        private void Start() {
+            var optionsData = new List<ContextualOption<DemoApple>>() {
                 new ("Restore", ExecuteRestore, ValidateRestore),
                 new ("Eat", DemoApple.ExecuteEat, DemoApple.ValidateEatable),
                 new ("Jump", DemoApple.ExecuteJump, DemoApple.ValidateJump),
@@ -17,6 +15,7 @@ namespace Plugins.ContextualMenu.Demo {
                     )
             };
             foreach (var option in optionsData) {
+                // option.closeAfterMenuAfterClicking = false;
                 AddButton(option);
             }
         }
