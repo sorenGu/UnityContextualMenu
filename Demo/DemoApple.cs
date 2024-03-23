@@ -1,9 +1,9 @@
 using System.Collections;
-using sorenGu.ContextualMenu.Scripts.ContextualMenu;
+using UnityContextualMenu.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace sorenGu.ContextualMenu.Demo {
+namespace UnityContextualMenu.Demo {
     public enum OnClickAction {
         Eat,
         Jump,

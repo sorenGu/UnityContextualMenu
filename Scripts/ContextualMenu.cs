@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace sorenGu.ContextualMenu.Scripts.ContextualMenu {
+namespace UnityContextualMenu.Scripts {
     public interface IContextualMenuObject { }
 
     public class ContextualOption<T> where T : IContextualMenuObject {
@@ -32,7 +32,7 @@ namespace sorenGu.ContextualMenu.Scripts.ContextualMenu {
         }
     }
 
-    public abstract class BaseContextualMenu<T> : MonoBehaviour where T : IContextualMenuObject {
+    public abstract class ContextualMenu<T> : MonoBehaviour where T : IContextualMenuObject {
         public Action<ContextualOption<T>> onInvalidExecution;
 
         [SerializeField] private ContextualMenuBuilder builder;
@@ -41,7 +41,7 @@ namespace sorenGu.ContextualMenu.Scripts.ContextualMenu {
 
         public List<ContextualOption<T>> options { get; } = new();
 
-        public virtual void AddButton(ContextualOption<T> option) {
+        public virtual void AddOption(ContextualOption<T> option) {
             ContextualMenuButton contextualMenuButton = builder.AddButton(option.buttonText);
             option.button = contextualMenuButton;
             contextualMenuButton.button.onClick.AddListener(delegate { Execute(option); });
