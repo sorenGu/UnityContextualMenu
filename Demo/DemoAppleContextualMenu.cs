@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using sorenGu.ContextualMenu.Scripts.ContextualMenu;
+using UnityContextualMenu.Scripts;
 using UnityEngine;
 
-namespace sorenGu.ContextualMenu.Demo {
-    public class DemoAppleContextualMenu : BaseContextualMenu<DemoApple> {
+namespace UnityContextualMenu.Demo {
+    public class DemoAppleContextualMenu : ContextualMenu<DemoApple> {
         private void Start() {
             var optionsData = new List<ContextualOption<DemoApple>>() {
                 new ("Restore", ExecuteRestore, ValidateRestore),

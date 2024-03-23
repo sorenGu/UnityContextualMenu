@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace sorenGu.ContextualMenu.Scripts.ContextualMenu {
+namespace UnityContextualMenu.Scripts {
     public enum InvalidOptionBehaviour {
         Hide,
         Disable
