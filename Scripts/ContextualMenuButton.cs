@@ -16,11 +16,7 @@ namespace UnityContextualMenu.Scripts {
             this.buttonText.text = buttonText;
         }
 
-        private void Test() {
-            UnityEngine.Debug.Log("b");
-        }
-
-        public bool SetValid(bool valid, InvalidOptionBehaviour invalidOptionBehaviour) {
+        public void SetValid(bool valid, InvalidOptionBehaviour invalidOptionBehaviour) {
             switch (invalidOptionBehaviour) {
                 case InvalidOptionBehaviour.Disable:
                     button.interactable = valid;
@@ -29,8 +25,6 @@ namespace UnityContextualMenu.Scripts {
                     gameObject.SetActive(valid);
                     break;
             }
-
-            return valid;
         }
     }
 }

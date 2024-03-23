@@ -18,7 +18,7 @@ namespace UnityContextualMenu.Scripts {
         public ContextualOption(
             string buttonText,
             Action<T> executeFunction,
-            Func<T, bool> validationFunction,
+            Func<T, bool> validationFunction = null,
             InvalidOptionBehaviour invalidOptionBehaviour = InvalidOptionBehaviour.Hide,
             bool validateAgainBeforeExecution = true,
             bool closeAfterMenuAfterClicking = true) {
@@ -68,8 +68,14 @@ namespace UnityContextualMenu.Scripts {
 
         protected virtual void Validate(T contextualMenuObject) {
             foreach (var option in options) {
-                option.button.SetValid(option.validationFunction(contextualMenuObject), option.invalidOptionBehaviour);
+                ValidateOption(contextualMenuObject, option);
             }
+        }
+
+        private static bool ValidateOption(T contextualMenuObject, ContextualOption<T> option) {
+            bool isValid = option.validationFunction != null ? option.validationFunction(contextualMenuObject) : true;
+            option.button.SetValid(isValid, option.invalidOptionBehaviour);
+            return isValid;
         }
 
         public virtual void Close() {
@@ -81,8 +87,7 @@ namespace UnityContextualMenu.Scripts {
                 Close();
             }
 
-            if (option.validateAgainBeforeExecution && !option.button.SetValid(option.validationFunction(currentObject),
-                    option.invalidOptionBehaviour)) {
+            if (option.validateAgainBeforeExecution && !ValidateOption(currentObject, option)) {
                 onInvalidExecution?.Invoke(option);
                 return;
             }
