@@ -12,7 +12,7 @@ namespace UnityContextualMenu.Demo {
 
     public class DemoApple : MonoBehaviour, IPointerClickHandler, IContextualMenuObject {
         public bool eaten { get; private set; }
-        private bool isJumping;
+        public bool isJumping { get; private set; }
 
         [SerializeField] private OnClickAction onClickAction;
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -29,8 +29,8 @@ namespace UnityContextualMenu.Demo {
                     }
                     break;
                 case OnClickAction.Jump:
-                    if (ValidateJump(this)) {
-                        ExecuteJump(this);
+                    if (!isJumping) {
+                        StartJump();
                     }
                     break;
                 case OnClickAction.OpenContextualMenu:
@@ -47,14 +47,6 @@ namespace UnityContextualMenu.Demo {
 
         public static bool ValidateEatable(DemoApple apple) {
             return !apple.eaten;
-        }
-
-        public static void ExecuteJump(DemoApple apple) {
-            apple.StartJump();
-        }
-
-        public static bool ValidateJump(DemoApple apple) {
-            return !apple.isJumping;
         }
 
         public void StartJump() {

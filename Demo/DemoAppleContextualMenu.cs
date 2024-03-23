@@ -4,14 +4,13 @@ using UnityEngine;
 
 namespace UnityContextualMenu.Demo {
     public class DemoAppleContextualMenu : ContextualMenu<DemoApple> {
-        private void Start() {
+        private void Awake() {
             var optionsData = new List<ContextualOption<DemoApple>>() {
                 new ("Restore", ExecuteRestore, ValidateRestore),
                 new ("Eat", DemoApple.ExecuteEat, DemoApple.ValidateEatable),
-                new ("Jump", DemoApple.ExecuteJump, DemoApple.ValidateJump),
+                new ("Jump", apple => apple.StartJump(), apple => !apple.isJumping),
                 new ("Randomize Color", 
-                    apple => apple.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f),Random.Range(0f, 1f)),
-                    apple => true
+                    apple => apple.GetComponent<SpriteRenderer>().color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f),Random.Range(0f, 1f))
                     )
             };
             foreach (var option in optionsData) {
@@ -27,6 +26,5 @@ namespace UnityContextualMenu.Demo {
         private void ExecuteRestore(DemoApple apple) {
             apple.Restore();
         }
-
     }
 }
