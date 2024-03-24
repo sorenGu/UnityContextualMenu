@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UnityContextualMenu.Scripts {
+namespace sorenGu.UnityContextualMenu.Scripts {
     public class HideContextMenu : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler {
         [Header("Delays in Seconds")]
         [SerializeField] private float delayAfterMouseLeft = 0.5f;

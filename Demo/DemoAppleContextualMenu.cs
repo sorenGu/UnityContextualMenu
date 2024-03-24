@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using UnityContextualMenu.Scripts;
+using sorenGu.UnityContextualMenu.Scripts;
 using UnityEngine;
 
-namespace UnityContextualMenu.Demo {
+namespace sorenGu.UnityContextualMenu.Demo {
     public class DemoAppleContextualMenu : ContextualMenu<DemoApple> {
         private void Awake() {
             var optionsData = new List<ContextualOption<DemoApple>>() {

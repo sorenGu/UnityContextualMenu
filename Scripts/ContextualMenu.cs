@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityContextualMenu.Scripts {
+namespace sorenGu.UnityContextualMenu.Scripts {
     public interface IContextualMenuObject { }
 
     public class ContextualOption<T> where T : IContextualMenuObject {
