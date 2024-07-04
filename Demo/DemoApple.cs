@@ -2,6 +2,7 @@ using System.Collections;
 using sorenGu.UnityContextualMenu.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace sorenGu.UnityContextualMenu.Demo {
     public enum OnClickAction {
@@ -19,13 +20,13 @@ namespace sorenGu.UnityContextualMenu.Demo {
         [SerializeField] private Sprite defaultSprite;
         [SerializeField] private Sprite eatenSprite;
 
-        [SerializeField] private DemoAppleContextualMenu contextualMenu;
+        [FormerlySerializedAs("contextualMenu")] [SerializeField] private DemoAppleContextualMenuAnchor contextualMenuAnchor;
 
         public void OnPointerClick(PointerEventData eventData) {
             switch (onClickAction) {
                 case OnClickAction.Eat:
                     if (ValidateEatable(this)) {
-                        ExecuteEat(this);
+                        ExecuteEat();
                     }
                     break;
                 case OnClickAction.Jump:
@@ -34,18 +35,18 @@ namespace sorenGu.UnityContextualMenu.Demo {
                     }
                     break;
                 case OnClickAction.OpenContextualMenu:
-                    contextualMenu.Open(transform.name, this, transform);
+                    contextualMenuAnchor.Open(this);
                     break;
             }
         }
 
-        public static void ExecuteEat(DemoApple apple) {
+        public void ExecuteEat() {
             Debug.Log("Yumi!");
-            apple.spriteRenderer.sprite = apple.eatenSprite;
-            apple.eaten = true;
+            spriteRenderer.sprite = eatenSprite;
+            eaten = true;
         }
 
-        public static bool ValidateEatable(DemoApple apple) {
+        private static bool ValidateEatable(DemoApple apple) {
             return !apple.eaten;
         }
 

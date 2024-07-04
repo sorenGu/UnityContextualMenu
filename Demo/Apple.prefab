@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1958011088940901143}
   - component: {fileID: 4617868392483676313}
   - component: {fileID: 6390253760043072617}
+  - component: {fileID: 7268830180042475939}
   m_Layer: 0
   m_Name: Apple
   m_TagString: Untagged
@@ -133,8 +134,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c594f5c110e4f4f919ff5095075eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onClickAction: 0
+  onClickAction: 2
   spriteRenderer: {fileID: 1958011088940901143}
   defaultSprite: {fileID: 21300000, guid: 3611ca1523bc26e4caa0885f1e3ce7f2, type: 3}
   eatenSprite: {fileID: 21300000, guid: 487ee06456c489c4d87c786973d17218, type: 3}
-  contextualMenu: {fileID: 0}
+  contextualMenuAnchor: {fileID: 7268830180042475939}
+--- !u!114 &7268830180042475939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5763187324019302532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843c457853a74c88b1a9195ba05af548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

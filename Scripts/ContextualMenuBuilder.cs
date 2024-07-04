@@ -16,10 +16,21 @@ namespace sorenGu.UnityContextualMenu.Scripts {
             title.text = titleText;
         }
 
-        internal ContextualMenuButton AddButton(string buttonText) {
+        internal ContextualMenuButton AddButton(ContextualOption option) {
             ContextualMenuButton newButton = Instantiate(buttonTemplate, optionsContainer);
-            newButton.Init(buttonText);
+            newButton.Init(option);
+            if (option.closeAfterMenuAfterClicking) {
+                newButton.button.onClick.AddListener(() => gameObject.SetActive(false));
+            }
             return newButton;
+        }
+
+        public void RemoveButtons() {
+            foreach(Transform child in optionsContainer) {
+                if (child == buttonTemplate.transform) continue;
+                
+                Destroy(child.gameObject);
+            }
         }
     }
 }

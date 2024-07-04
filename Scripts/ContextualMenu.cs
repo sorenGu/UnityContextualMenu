@@ -5,94 +5,58 @@ using UnityEngine;
 namespace sorenGu.UnityContextualMenu.Scripts {
     public interface IContextualMenuObject { }
 
-    public class ContextualOption<T> where T : IContextualMenuObject {
-        public InvalidOptionBehaviour invalidOptionBehaviour;
-        public bool validateAgainBeforeExecution;
-        public bool closeAfterMenuAfterClicking;
+    public class ContextualOption {
         public string buttonText { get; }
-        public Func<T, bool> validationFunction { get; }
-        public Action<T> executeFunction { get; }
-
-        internal ContextualMenuButton button;
+        public Action executeFunction { get; }
+        public DisplayOption displayOption { get; }
+        public bool closeAfterMenuAfterClicking { get; }
 
         public ContextualOption(
-            string buttonText,
-            Action<T> executeFunction,
-            Func<T, bool> validationFunction = null,
-            InvalidOptionBehaviour invalidOptionBehaviour = InvalidOptionBehaviour.Hide,
-            bool validateAgainBeforeExecution = true,
-            bool closeAfterMenuAfterClicking = true) {
-            
+                string buttonText,
+                Action executeFunction,
+                DisplayOption displayOption = DisplayOption.Show,
+                bool closeAfterMenuAfterClicking = true
+            ) {
             this.buttonText = buttonText;
-            this.validationFunction = validationFunction;
             this.executeFunction = executeFunction;
-            this.invalidOptionBehaviour = invalidOptionBehaviour;
-            this.validateAgainBeforeExecution = validateAgainBeforeExecution;
+            this.displayOption = displayOption;
             this.closeAfterMenuAfterClicking = closeAfterMenuAfterClicking;
         }
     }
 
-    public abstract class ContextualMenu<T> : MonoBehaviour where T : IContextualMenuObject {
-        public Action<ContextualOption<T>> onInvalidExecution;
-
+    [RequireComponent(typeof(ContextualMenuBuilder))]
+    public class ContextualMenu : MonoBehaviour {
         [SerializeField] private ContextualMenuBuilder builder;
+        public static ContextualMenu Instance { get; protected set; }
 
-        protected T currentObject;
-
-        public List<ContextualOption<T>> options { get; } = new();
-
-        public virtual void AddOption(ContextualOption<T> option) {
-            ContextualMenuButton contextualMenuButton = builder.AddButton(option.buttonText);
-            option.button = contextualMenuButton;
-            contextualMenuButton.button.onClick.AddListener(delegate { Execute(option); });
-            options.Add(option);
+        protected virtual void Awake() {
+            if (Instance && Instance != this) {
+                Destroy(gameObject);
+            } else {
+                Instance = this;
+            }
         }
 
-
-        public virtual void Open(string titleText, T contextualMenuObject, Transform attachTransform) {
-            transform.SetParent(attachTransform, false);
-            Open(titleText, contextualMenuObject);
-        }
-
-        public virtual void Open(string titleText, T contextualMenuObject, Vector3 position) {
-            transform.position = position;
-            Open(titleText, contextualMenuObject);
-        }
-
-        public virtual void Open(string titleText, T contextualMenuObject) {
-            currentObject = contextualMenuObject;
+        public virtual void Open(string titleText, List<ContextualOption> options, Vector3 position,
+            Transform attachTransform = null) {
+            if (attachTransform) {
+                transform.SetParent(attachTransform, false);
+                transform.localPosition = position; 
+            } else {
+                transform.position = position;
+            }
+            
             builder.SetText(titleText);
             gameObject.SetActive(true);
-            Validate(contextualMenuObject);
+
+            RefreshOptions(options);
         }
 
-        protected virtual void Validate(T contextualMenuObject) {
-            foreach (var option in options) {
-                ValidateOption(contextualMenuObject, option);
+        public void RefreshOptions(List<ContextualOption> options) {
+            builder.RemoveButtons();
+            foreach (ContextualOption option in options) {
+                builder.AddButton(option);
             }
-        }
-
-        private static bool ValidateOption(T contextualMenuObject, ContextualOption<T> option) {
-            bool isValid = option.validationFunction != null ? option.validationFunction(contextualMenuObject) : true;
-            option.button.SetValid(isValid, option.invalidOptionBehaviour);
-            return isValid;
-        }
-
-        public virtual void Close() {
-            gameObject.SetActive(false);
-        }
-
-        protected virtual void Execute(ContextualOption<T> option) {
-            if (option.closeAfterMenuAfterClicking) {
-                Close();
-            }
-
-            if (option.validateAgainBeforeExecution && !ValidateOption(currentObject, option)) {
-                onInvalidExecution?.Invoke(option);
-                return;
-            }
-
-            option.executeFunction(currentObject);
         }
     }
 }
